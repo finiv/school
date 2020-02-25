@@ -12,8 +12,13 @@ class Message extends Model
         'send'
     ];
 
-    public function messageable()
+    public function students()
     {
-        return $this->morphTo();
+        return $this->morphedByMany(Student::class, 'messageable');
+    }
+
+    public function teachers()
+    {
+        return $this->morphedByMany(Teacher::class, 'messageable');
     }
 }

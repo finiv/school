@@ -14,6 +14,6 @@ class Teacher extends Model
 
     public function messages()
     {
-        return $this->morphMany(Message::class, 'messageable');
+        return $this->morphToMany(Message::class, 'messageable');
     }
 }
