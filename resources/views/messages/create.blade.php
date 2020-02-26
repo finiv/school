@@ -34,7 +34,7 @@
                         <label for="title">Teachers</label>
                         <select name="teachers[]" multiple size="2" class="form-control">
                             @foreach($teachers as $teacher)
-                            <option value="{{ $teacher->id }}" class="form-control">{{ $teacher->first_name . $teacher->last_name }}</option>
+                            <option value="{{ $teacher->id }}" class="form-control">{{ $teacher->first_name . ' ' . $teacher->last_name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -42,7 +42,7 @@
                         <label for="title">Students</label>
                         <select name="students[]" multiple size="2" class="form-control">
                             @foreach($students as $student)
-                            <option value="{{ $student->id }}" class="form-control">{{ $student->first_name . $student->last_name }}</option>
+                            <option value="{{ $student->id }}" class="form-control">{{ $student->first_name . ' ' . $student->last_name }}</option>
                             @endforeach
                         </select>
                     </div>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\{Message, Teacher, Student};
+use App\Jobs\EmailSend;
+use Illuminate\Support\Facades\Redis;
 
 class MessageController extends Controller
 {
@@ -31,7 +33,7 @@ class MessageController extends Controller
     {
         $teachers = Teacher::all();
         $students = Student::all();
-
+        
         return view('messages.edit', compact('message', 'teachers', 'students'));
     }
 
@@ -61,5 +63,12 @@ class MessageController extends Controller
         
         return redirect()->route('messages.index')
                         ->with('success','Message was deleted successfully');
+    }
+
+    public function sendEmails (Message $message)
+    {
+        EmailSend::dispatch($message);
+        
+        return back()->with('success', 'Message successfuly send');
     }
 }

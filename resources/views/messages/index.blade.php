@@ -12,7 +12,7 @@
         <thead>
             <tr>
                 <th>Message subject</th>
-                <th>Message body</th>
+                <th>Total recepients</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -20,17 +20,21 @@
         @foreach($messages as $message)
             <tr>
                 <td>{{ $message->subject }}</td>
-                <td>{{ $message->body }}</td>
-                <td> <button class="btn btn-primary" type="submit">Send email</button>
-                <a href="{{ route('messages.edit', ['message' => $message]) }}" class="btn btn-primary">Edit</a>
-                <a href="{{ route('messages.show', ['message' => $message]) }}" class="btn btn-primary">Show</a>
+                <td>{{ $message->students->count() + $message->teachers->count() }}</td>
+                <td> 
+                    @if($message->send == false)
+                    <a class="btn btn-primary" href="{{ route('email', ['message' => $message]) }}">Send email</a>
+                    @else
+                    <a class="btn btn-primary" href="{{ route('email', ['message' => $message]) }}">Send email again</a>
+                    @endif
+                    <a href="{{ route('messages.edit', ['message' => $message]) }}" class="btn btn-primary">Edit</a>
+                    <a href="{{ route('messages.show', ['message' => $message]) }}" class="btn btn-primary">Show</a>
                 <form action="{{ route('messages.destroy', ['message' => $message]) }}" method="post">
-                            @method('DELETE')
-                            <button class="btn btn-danger" type="submit" >Delete</button>
-                            @csrf
-                            </form>
+                    @method('DELETE')
+                    <button class="btn btn-danger" type="submit" >Delete</button>
+                    @csrf
+                </form>
                 </td>
-
             </tr>
         @endforeach
         </tbody>

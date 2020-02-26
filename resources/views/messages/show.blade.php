@@ -31,21 +31,24 @@
                     @if(count($message->teachers) > 0)
                     <div class="form-group">
                         <label for="title">Teachers</label>
+                       
+                        <textarea name="teachers[]" id="" cols="30" rows="10" class="form-control" readonly="readonly">
                         @foreach($message->teachers as $item)
-                        <textarea name="teachers[]" id="" cols="30" rows="10" class="form-control" readonly="readonly">{{ $item->first_name . ' ' . $item->last_name }}</textarea>
+                        {{ $item->first_name . ' ' . $item->last_name }}
                         @endforeach
+                        </textarea>
                     </div>
                     @endif
                     @if(count($message->students) > 0)
                     <div class="form-group">
                         <label for="title">Students</label>
+                        <textarea name="teachers[]" id="" cols="30" rows="10" class="form-control" readonly="readonly">
                         @foreach($message->students as $item)
-                        <textarea name="teachers[]" id="" cols="30" rows="10" class="form-control" readonly="readonly">{{ $item->first_name . ' ' . $item->last_name }}</textarea>
+                        {{ $item->first_name . ' ' . $item->last_name }}
                         @endforeach
+                        </textarea>
                     </div>
                     @endif
-                    
-                
             </div>
         </div>
     </div>

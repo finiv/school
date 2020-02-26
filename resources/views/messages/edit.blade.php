@@ -23,6 +23,7 @@
                 <form method="post" action="{{ route('messages.update', ['message' => $message]) }}">
                 @method('PUT')
                     @csrf
+                    
                     <div class="form-group">
                         <label for="type">Subject:</label>
                         <input type="text" class="form-control" name="subject" value="{{ $message->subject }}"/>
@@ -35,7 +36,15 @@
                         <label for="title">Teachers</label>
                         <select name="teachers[]" multiple size="2" class="form-control">
                             @foreach($teachers as $teacher)
-                            <option value="{{ $teacher->id }}" class="form-control">{{ $teacher->first_name . $teacher->last_name }}</option>
+                            @php
+                            $selected = '';
+                            @endphp
+                            @foreach($message->teachers as $item)
+                            @if($item->id == $teacher->id)
+                            @php $selected = 'selected="selected"'; @endphp
+                            @endif
+                            @endforeach
+                            <option value="{{ $teacher->id }}" class="form-control" {{$selected}}>{{ $teacher->first_name . $teacher->last_name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -43,7 +52,15 @@
                         <label for="title">Students</label>
                         <select name="students[]" multiple size="2" class="form-control">
                             @foreach($students as $student)
-                            <option value="{{ $student->id }}" class="form-control">{{ $student->first_name . $student->last_name }}</option>
+                            @php
+                            $selected = '';
+                            @endphp
+                            @foreach($message->students as $item)
+                            @if($item->id == $student->id)
+                            @php $selected = 'selected="selected"'; @endphp
+                            @endif
+                            @endforeach
+                            <option value="{{ $student->id }}" class="form-control" {{$selected}}>{{ $student->first_name . $student->last_name }}</option>
                             @endforeach
                         </select>
                     </div>

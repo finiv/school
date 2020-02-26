@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 
 Route::resource('messages', 'MessageController');
+Route::get('email/{message}', 'MessageController@sendEmails')->name('email');
