@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\{Message, Teacher, Student};
 use App\Jobs\EmailSend;
 use Illuminate\Support\Facades\Redis;
+use App\Http\Requests\{StoreMessageRequest, UpdateMessageRequest};
 
 class MessageController extends Controller
 {
@@ -37,8 +38,8 @@ class MessageController extends Controller
         return view('messages.edit', compact('message', 'teachers', 'students'));
     }
 
-    public function store (Request $request)
-    {        
+    public function store (StoreMessageRequest $request)
+    {
         $message = Message::create($request->all());
 
         $message->students()->sync($request->students);
@@ -47,7 +48,7 @@ class MessageController extends Controller
         return redirect('/messages')->with('success', 'Message successfuly created');
     }
 
-    public function update (Request $request, Message $message)
+    public function update (UpdateMessageRequest $request, Message $message)
     {        
         $message->update($request->all());
 
@@ -62,7 +63,7 @@ class MessageController extends Controller
         $message->delete();
         
         return redirect()->route('messages.index')
-                        ->with('success','Message was deleted successfully');
+                         ->with('success','Message was deleted successfully');
     }
 
     public function sendEmails (Message $message)
